@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+    <p>Welcome to my amazon! seller page</p>
+    <p>Add your products </p>
+
+    {% if session %}
+    <p>You've logged in! Welcome {{ session['username'] }}  </p>
+    <p>You've logged in! Welcome {{ session['c_type'] }}  </p>
+
+    {% else %}
+ <form action="/add" method="POST">
+    	<input type="text" name="pname" placeholder="productname..."><br>
+    	<input type="price" name="pprice" placeholder="product price"><br>
+    	<input type="text" name="pdescription" placeholder="product description.."><br>
+    	<input type="text" name="sellername" placeholder="seller name"><br>
+		<input type="submit" value="Add">
+	</form>
+
+ 	{% endif %}
+ 	{% endblock body %}
