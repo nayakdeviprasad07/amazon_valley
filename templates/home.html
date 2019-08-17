@@ -5,12 +5,26 @@
     <p>Welcome to my amazon!</p>
 
     {% if session %}
-    <p> Welcome {{ session['username']}} </p>
-    <p>You've logged in! Welcome {{ session['username'] }}  </p>
-    <p>You've logged in! Welcome {{ session['c_type'] }}  </p>
+    <!-- <p> Welcome {{ session['username']}} </p> -->
+     <p>You've logged in! Welcome {{ session['username'] }}  </p> 
+    <!-- <p>You've logged in! Welcome {{ session['c_type'] }}  </p> -->
+    <p><a href="/products"> Click here </a>to see products</p>
+
+    {% if session['c_type'] == 'seller' %}
+
+     <p> Enter the product details</p>
+
+    <form action="/products" method="POST">
+        <input type="text" name="pname" placeholder="productname..."><br>
+        <input type="price" name="pprice" placeholder="product price"><br>
+        <input type="text" name="pdescription" placeholder="product description.."><br>
+        <!-- <input type="text" name="sellername" placeholder="seller name"><br> -->
+        <input type="submit" value="Add products">
+    </form>
+
+    {% endif %}
 
     {% else %}
-
 
 
     <p> Have an account? Login Here!</p>
@@ -35,12 +49,12 @@
 <!-- 
     <p> add product information</p>
 
-    <form action="/add" method="POST">
+    <form action="#" method="POST">
         <input type="text" name="pname" placeholder="productname..."><br>
         <input type="price" name="pprice" placeholder="product price"><br>
-        <input type="password" name="pdescription" placeholder="product description.."><br>
+        <input type="text" name="pdescription" placeholder="product description.."><br>
         <input type="password" name="sellername" placeholder="seller name"><br>
-        <input type="submit" value="Add">
+        <input type="submit" value="Add product">
     </form> -->
 
 
