@@ -2,9 +2,7 @@
 
 {% block body %}
 
-{% if products.count() !=0 %}
-
-{% for product in products %}
+{% for product in cart %}
 
 <ul>
 	<li> <b> Product name</b>: {{ product['pname'] }} </li>
@@ -15,27 +13,15 @@
 
 </ul>
 
-{% if session['c_type']=='seller' %}
 
-<form action="/remove" method="POST">
+<form action="/remove_cart" method="POST">
 	<input type="hidden" name="pname" value="{{product['pname']}}">
-	<input type="submit" value="remove product">
+	<input type="submit" value="remove from cart">
 	
 </form>
-{% else %}
 
-<form action="/cart" method="POST">
-	<input type="hidden" name="pname" value="{{product['pname']}}">
-	<input type="submit" value="Add to cart">
-	
-</form>
- 
+{% endfor %}
 
-{% endif %}
-
-
-{%endfor%}
-{% endif %} 
-
+<p><b>total is {{total}}</b></p>
 
 {% endblock body %}

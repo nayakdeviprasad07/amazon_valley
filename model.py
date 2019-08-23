@@ -42,3 +42,29 @@ def remove_product(pname):
 	query = {"pname":pname}
 	db['product'].remove(query)
 
+
+def add_to_cart(pname):
+	query={"username":session['username']}
+	action ={"$addToSet":{"cart":{"$each":[pname]}}}
+	db['users'].update(query,action)
+
+def get_cart():
+
+	query=query={"username":session['username']}
+	temp=db['users'].find_one(query)
+	result=temp['cart']
+	# import pdb; pdb.set_trace()
+	cart=[]
+	total=0
+
+	for product in result:
+		info =db['product'].find_one({'pname':product})
+		cart.append(info)
+		total+=info['pprice']
+	return cart,total
+
+def remove_from_cart(pname):
+	query={"username":session['username']}
+	action={"$pull":{"cart":pname}}
+	db['users'].update(query,action)
+

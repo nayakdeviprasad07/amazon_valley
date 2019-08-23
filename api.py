@@ -1,5 +1,5 @@
 from flask import Flask,render_template,request,session,redirect,url_for
-from model import check_user,add_user_to_db, add_product_to_db,check_product,get_products,remove_product
+from model import check_user,add_user_to_db, add_product_to_db,check_product,get_products,remove_product,add_to_cart,get_cart,remove_from_cart
 
 app= Flask(__name__)
 app.secret_key='hello'
@@ -92,8 +92,9 @@ def login():
 
 @app.route('/products',methods=['GET','POST'])
 def products():
+	# import pdb; pdb.set_trace()
 	if request.method=='POST':
-		# import pdb; pdb .set_trace()
+		# import pdb; pdb.set_trace()
 
 		product_info = {}
 
@@ -112,14 +113,34 @@ def products():
 	products= get_products()
 	return render_template('products.html', products=products)
 
-
-
 @app.route('/remove', methods=['GET','POST'])
 def remove():
 	if request.method=='POST':
 		pname=request.form['pname']
 		remove_product(pname)
 	return redirect(url_for('products'))
+
+@app.route('/cart', methods=['GET','POST'])
+def cart():
+	if request.method=='POST':
+		pname=request.form['pname']
+		add_to_cart(pname)
+		return redirect(url_for('cart'))
+
+	# import pdb;pdb.set_trace()	
+	cart,total = get_cart()
+
+	return render_template('cart.html', cart=cart,total =total )
+
+
+@app.route('/remove_cart', methods=['GET','POST'])
+def remove_cart():
+	if request.method=='POST':
+		pname=request.form['pname']
+		remove_from_cart(pname)
+		return redirect(url_for('cart'))
+
+	return redirect(url_for('cart'))
 
 @app.route('/logout')
 def logout():

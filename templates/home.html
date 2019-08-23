@@ -7,7 +7,7 @@
     {% if session %}
     <!-- <p> Welcome {{ session['username']}} </p> -->
      <p>You've logged in! Welcome {{ session['username'] }}  </p> 
-    <!-- <p>You've logged in! Welcome {{ session['c_type'] }}  </p> -->
+     <p>You've logged in! Welcome {{ session['c_type'] }}  </p>
     <p><a href="/products"> Click here </a>to see products</p>
 
     {% if session['c_type'] == 'seller' %}
